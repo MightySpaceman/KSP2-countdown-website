@@ -1,13 +1,14 @@
 const express = require('express');
 const app = express();
-const moment = require('moment');
 
 app.use('/style.css', express.static('style.css'));
 app.use('/ui.js', express.static('ui.js'));
 
-const futureDate = moment("2023-2-25", "YYYY-MM-DD");
-const duration = moment.duration(futureDate.diff(moment()));
-const daysUntilKSP2 = Math.ceil(duration.asDays());
+const targetDate = new Date("2023-02-25T00:00:00");
+const currentDate = new Date();
+const timeDifference = targetDate - currentDate;
+const oneDay = 24 * 60 * 60 * 1000;
+const daysUntil = Math.ceil(timeDifference / oneDay);
 
 app.get("/", (req, res) => {
     res.send(`
@@ -20,9 +21,9 @@ app.get("/", (req, res) => {
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
         <meta name="title" content="Days until KSP 2">
-        <meta name="description" content="${daysUntilKSP2} Days Left!">
+        <meta name="description" content="${daysUntil} Days Left!">
     
-        <title>Days until KSP 2</title>
+        <title>Dsudo ahays until KSP 2</title>
     
         <link rel="stylesheet" href="./style.css">
         <script defer src="./ui.js"></script>
@@ -30,7 +31,7 @@ app.get("/", (req, res) => {
     <body class="animate">
         <div class="main">
             <h2>>Days until KSP 2:<span id="blink">_</span></h2>
-            <h1>[ ${daysUntilKSP2} ]</h1>
+            <h1>[ ${daysUntil} ]</h1>
         </div>
         <footer>
             <a href="https://mstdn.social/@kerbalcountdown">Check out the Mastodon bot</a>
