@@ -1,6 +1,23 @@
 const express = require('express');
 const app = express();
 
+const fs = require('fs');
+const path = require('path');
+const filePath = path.join(__dirname, 'count.txt');
+
+const incrementCounter = () => {
+  fs.readFile(filePath, 'utf-8', (err, data) => {
+    if (err) throw err;
+
+    let count = parseInt(data, 10);
+    count = isNaN(count) ? 0 : count + 1;
+
+    fs.writeFile(filePath, count.toString(), (err) => {
+      if (err) throw err;
+    });
+  });
+};
+
 app.use('/style.css', express.static('style.css'));
 app.use('/ui.js', express.static('ui.js'));
 
@@ -11,6 +28,7 @@ const oneDay = 24 * 60 * 60 * 1000;
 const daysUntil = Math.ceil(timeDifference / oneDay);
 
 app.get("/", (req, res) => {
+    incrementCounter();
     res.send(`
 
     <!DOCTYPE html>
@@ -23,7 +41,7 @@ app.get("/", (req, res) => {
         <meta name="title" content="Days until KSP 2">
         <meta name="description" content="${daysUntil} Days Left!">
     
-        <title>Dsudo ahays until KSP 2</title>
+        <title>Days until KSP 2</title>
     
         <link rel="stylesheet" href="./style.css">
         <script defer src="./ui.js"></script>
