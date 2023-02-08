@@ -46,6 +46,17 @@ app.get("/", (req, res) => {
         <link rel="stylesheet" href="./style.css">
         <script defer src="./ui.js"></script>
     </head>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-ME8ZP6J432"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-ME8ZP6J432');
+</script>
+
     <body class="animate">
         <div class="main">
             <h2>>Days until KSP 2:<span id="blink">_</span></h2>
