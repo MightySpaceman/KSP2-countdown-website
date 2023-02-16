@@ -1,5 +1,5 @@
 const countdown = document.getElementById('countdown');
-const releaseDate = new Date('2023-02-24T06:00:00Z'); // set the release date in UTC
+const releaseDate = new Date('2023-02-24T14:00:00Z'); // set the release date in UTC
 const timezoneOffset = releaseDate.getTimezoneOffset() * 60 * 1000; // get the timezone offset in milliseconds
 const countdownDate = releaseDate.getTime() - timezoneOffset; // adjust the release date for the user's timezone
 
