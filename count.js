@@ -1,8 +1,19 @@
-const futureDate = new Date("2023-2-25");
-const currentDate = new Date();
-const timezoneDifference = currentDate.getTimezoneOffset();
-const oneDay = 24 * 60 * 60 * 1000; // milliseconds in a day
-const diffMs = futureDate - currentDate + timezoneDifference * 60 * 1000;
-const diffDays = Math.round(diffMs / oneDay);
+const countdown = document.getElementById('countdown');
+const countdownDate = new Date('2023-03-01T00:00:00').getTime(); // replace with release date
 
-document.getElementById("countdown").innerHTML = `[ ${diffDays} ]`;
+const interval = setInterval(() => {
+    const now = new Date().getTime();
+    const distance = countdownDate - now;
+
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    countdown.innerHTML = `[ ${days}:${hours}:${minutes}:${seconds} ]`;
+
+    if (distance < 0) {
+        clearInterval(interval);
+        countdown.innerHTML = "KSP 2 has been released!";
+    }
+}, 1000);
